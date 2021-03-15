@@ -1,2 +1,6 @@
 ---
+- name: Set hostname on "{{ inventory_hostname_short }}"
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+
 - include_tasks: update.yml
