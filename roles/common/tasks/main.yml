@@ -3,12 +3,6 @@
   hostname:
     name: "{{ inventory_hostname }}"
 
-- name: Add user "{{ lookup('env', 'USER') }}"
-  user:
-    name: "{{ lookup('env', 'USER') }}"
-    uid: 1000
-    group: "{{ lookup('env', 'USER') }}"
-
 - name: Install packages
   apt:
     pkg:
@@ -18,8 +12,8 @@
       - tmux
       - nfs-common
     update_cache: yes
-    autoclean: yes
-    autoremove: yes
+    autoclean   : yes
+    autoremove  : yes
   become: yes
 
 - include_tasks: update.yml
