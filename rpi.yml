@@ -1,6 +1,8 @@
----
 - hosts: rpi
-  remote_user: "{{ lookup('env', 'USER') }}"
+  remote_user: root
+  roles:
+    - rpi
+- hosts: rpi
+  remote_user: "{{ USER }}"
   roles:
     - common
-    - rpi
