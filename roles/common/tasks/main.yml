@@ -9,8 +9,10 @@
       - neovim
       - zsh
       - zsh-syntax-highlighting
+      - stow
       - tmux
-      - nfs-common
+      - docker
+      - docker-compose
     update_cache: yes
     autoclean   : yes
     autoremove  : yes
