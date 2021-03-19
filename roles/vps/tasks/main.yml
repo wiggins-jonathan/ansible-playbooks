@@ -1,4 +1,10 @@
-- name: Add user "{{ USER }}"
+- name: Create group "{{ USER }}"
+  group:
+    name  : "{{ USER }}"
+    gid   : 1000
+    state : present
+
+- name: Create user "{{ USER }}"
   user:
     name    : "{{ USER }}"
     uid     : 1000
