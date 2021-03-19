@@ -12,6 +12,21 @@
     shell   : /usr/bin/zsh
     password: "{{ PASS | password_hash('sha512') }}"
 
+- name: Add "{{ USER }}" to sudoers file
+  lineinfile:
+    path    : /etc/sudoers
+    state   : present
+    regexp  : '^"{{ USER }}"'
+    line    : "{{ USER }} ALL=(ALL) ALL"
+    validate: visudo -cf %s
+
+- name: Copy over ssh key
+  authorized_key:
+    user  : "{{ USER }}"
+    state : present
+    key   : "{{ lookup('file', '{{ HOME }}/.ssh/id_rsa.pub') }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
 - name: Update sshd
   copy:
     src     : "{{ HOME }}/code/ansible/roles/vps/files/etc/sshd_config"
