@@ -1,0 +1,11 @@
+- name: Clone dotfiles
+  git:
+    repo    : https://gitlab.com/wiggins.jonathan/dotfiles.git
+    dest    : "{{ HOME }}/dotfiles"
+    version : headless
+    force   : yes
+
+- name: Deploy dotfiles
+  shell:
+    cmd   : ./installer.sh
+    chdir : "{{ HOME }}/dotfiles"

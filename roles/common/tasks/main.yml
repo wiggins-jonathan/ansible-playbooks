@@ -19,20 +19,4 @@
   become: yes
 
 - include_tasks: update.yml
-
-- name: Clone dotfiles
-  git:
-    repo    : https://gitlab.com/wiggins.jonathan/dotfiles.git
-    dest    : "{{ HOME }}/dotfiles"
-    version : headless
-
-- name: Set dotfiles installer as executable
-  file:
-    path: "{{ HOME }}/dotfiles/installer.sh"
-    mode: 755
-
-- name: Deploy dotfiles
-  shell:
-    cmd   : ./installer.sh
-    chdir : "{{ HOME }}/dotfiles"
-  become: yes
+- include_tasks: dotfiles.yml
