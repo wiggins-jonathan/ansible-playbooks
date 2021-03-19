@@ -9,7 +9,8 @@
     name    : "{{ USER }}"
     uid     : 1000
     group   : "{{ USER }}"
-    password: "{{ PASS }}"
+    shell   : /usr/bin/zsh
+    password: "{{ PASS | password_hash('sha512') }}"
 
 - name: Update sshd
   copy:
