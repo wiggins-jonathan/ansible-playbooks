@@ -1,4 +1,4 @@
-- name: Update "{{ inventory_hostname_short }}"
+- name: Update system"
   apt:
     update_cache  : yes
     upgrade       : yes
@@ -6,12 +6,12 @@
     autoremove    : yes
   become: yes
 
-- name: Check reboot on "{{ inventory_hostname_short }}"
+- name: Check reboot
   stat:
     path: /var/run/reboot-required
   register: checkReboot
 
-- name: Reboot "{{ inventory_hostname_short }}"
+- name: Reboot system
   reboot:
     msg: Rebooting "{{ inventory_hostname_short }}" due to kernel update
   when: checkReboot.stat.exists
