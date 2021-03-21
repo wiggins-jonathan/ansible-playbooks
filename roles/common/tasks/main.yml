@@ -5,14 +5,7 @@
 
 - name: Install packages
   apt:
-    pkg:
-      - neovim
-      - zsh
-      - zsh-syntax-highlighting
-      - stow
-      - tmux
-      - docker
-      - docker-compose
+    pkg: "{{ packages }}"
     update_cache: yes
     autoclean   : yes
     autoremove  : yes
