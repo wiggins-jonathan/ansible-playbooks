@@ -2,6 +2,7 @@
   remote_user: root
   roles:
     - vps
+
 - hosts: vps
   remote_user: "{{ USER }}"
   vars:
@@ -15,3 +16,7 @@
       - docker-compose
   roles:
     - common
+
+- hosts: vps
+  roles:
+    - webserver

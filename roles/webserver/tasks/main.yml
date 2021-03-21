@@ -1,0 +1,12 @@
+- name: Clone webservices
+  git:
+    repo  : https://gitlab.com/wiggins.jonathan/docker-home-server.git
+    dest  : "{{ HOME }}/webservices"
+    force : yes
+
+- name: Start & Enable docker service
+  systemd:
+    name    : docker
+    enabled : yes
+    state   : started
+  become: yes
