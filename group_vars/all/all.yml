@@ -1,3 +1,13 @@
 USER: "{{ lookup('env', 'USER') }}"
 HOME: "{{ lookup('env', 'HOME') }}"
 PASS: "{{ vault_PASS }}"
+
+packages:
+  - neovim
+  - zsh
+  - zsh-syntax-highlighting
+  - stow
+  - tmux
+  - docker
+  - docker-compose
+  - tree

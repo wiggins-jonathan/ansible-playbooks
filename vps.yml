@@ -5,16 +5,6 @@
 
 - hosts: vps
   remote_user: "{{ USER }}"
-  vars:
-    packages:
-      - neovim
-      - zsh
-      - zsh-syntax-highlighting
-      - stow
-      - tmux
-      - docker
-      - docker-compose
-      - tree
   roles:
     - common
 
