@@ -1,7 +1,8 @@
 ---
-- name: Set hostname on "{{ inventory_hostname_short }}"
+- name: Set correct hostname
   hostname:
     name: "{{ inventory_hostname }}"
+  become: yes
 
 - name: Install packages
   apt:
