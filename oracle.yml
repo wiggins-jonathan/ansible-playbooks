@@ -1,0 +1,10 @@
+- hosts: oracle
+  remote_user: ubuntu
+  roles:
+    - oracle
+  become: yes
+
+- hosts: oracle
+  remote_user: "{{ USER }}"
+  roles:
+    - common

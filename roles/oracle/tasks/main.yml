@@ -1,0 +1,41 @@
+- name: Create group "{{ USER }}"
+  group:
+    name  : "{{ USER }}"
+    gid   : 2000
+    state : present
+
+- name: Create user "{{ USER }}"
+  user:
+    name            : "{{ USER }}"
+    uid             : 2000
+    group           : "{{ USER }}"
+    shell           : /usr/bin/zsh
+    password        : "{{ PASS | password_hash('sha512') }}"
+    update_password : on_create
+
+- name: Add "{{ USER }}" to sudoers file
+  lineinfile:
+    path    : /etc/sudoers
+    state   : present
+    regexp  : '^"{{ USER }}"'
+    line    : "{{ USER }} ALL=(ALL) ALL"
+    validate: visudo -cf %s
+
+- name: Copy over ssh key
+  authorized_key:
+    user  : "{{ USER }}"
+    state : present
+    key   : "{{ lookup('file', '{{ HOME }}/.ssh/id_rsa.pub') }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Update sshd
+  copy:
+    src     : "{{ HOME }}/code/ansible/roles/oracle/files/etc/sshd_config"
+    dest    : /etc/ssh/sshd_config
+    owner   : root
+    group   : root
+    mode    : '644'
+    backup  : yes
+    validate: /usr/sbin/sshd -T -f %s
+  notify:
+    - restart sshd
