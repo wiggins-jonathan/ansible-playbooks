@@ -30,7 +30,7 @@
 
 - name: Update sshd
   copy:
-    src     : "{{ HOME }}/code/ansible/roles/oracle/files/etc/sshd_config"
+    src     : "{{ HOME }}/code/ansible/roles/oracle/files/etc/ssh/sshd_config"
     dest    : /etc/ssh/sshd_config
     owner   : root
     group   : root
