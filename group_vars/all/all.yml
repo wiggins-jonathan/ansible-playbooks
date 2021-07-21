@@ -12,3 +12,4 @@ packages:
   - docker-compose
   - tree
   - ncdu
+  - rsync
