@@ -1,3 +1,2 @@
 ---
 - import_playbook: rpi.yml
-- import_playbook: vps.yml
