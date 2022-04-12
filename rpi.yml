@@ -1,8 +1,5 @@
 - hosts: rpi
-  remote_user: root
-  roles:
-    - rpi
-- hosts: rpi
   remote_user: "{{ USER }}"
   roles:
     - common
+    - rpi

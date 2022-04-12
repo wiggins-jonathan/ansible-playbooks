@@ -1,0 +1,12 @@
+LABEL=writable    /               ext4  discard,errors=remount-ro 0 1
+LABEL=system-boot /boot/firmware  vfat  defaults                  0 1
+
+LABEL=backup_A		/mnt/backup_A	ext4	defaults  0 2
+LABEL=backup_B		/mnt/backup_B	ext4	defaults  0 2
+
+# Bind mounts for nfs
+/mnt/backup_A/documents /home/jonathan/documents  none  bind  0 0
+/mnt/backup_A/games     /home/jonathan/games      none  bind  0 0
+/mnt/backup_A/music     /home/jonathan/music      none  bind  0 0
+/mnt/backup_A/pictures  /home/jonathan/pictures   none  bind  0 0
+/mnt/backup_A/video     /home/jonathan/video      none  bind  0 0

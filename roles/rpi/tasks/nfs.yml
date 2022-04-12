@@ -1,0 +1,57 @@
+- name: Install nfs
+  apt:
+    pkg: nfs-kernel-server
+    update_cache: yes
+    autoclean: no
+    autoremove: no
+  become: yes
+
+- name: Start & enable NFS service
+  systemd:
+    name: nfs-kernel-server
+    enabled: yes
+    state: started
+  become: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Create directories in /mnt
+  loop: ["backup_A", "backup_B"]
+  file:
+    path: "/mnt/{{ item }}"
+    state: directory
+    mode: 0755
+
+- name: "Create directories in {{ HOME }}"
+  loop: ["documents", "games", "music", "pictures", "video"]
+  file:
+    path: "{{ HOME }}/{{ item }}"
+    state: directory
+    mode: 0755
+
+- name: Copy fstab to create mount points
+  copy:
+    src     : "{{ HOME }}/code/ansible/roles/rpi/files/etc/fstab"
+    dest    : /etc/fstab
+    owner   : root
+    group   : root
+    mode    : '644'
+    backup  : yes
+  become: yes
+
+- name: Mount nfs bind mounts
+  shell: mount -a
+  become: yes
+
+- name: Copy exports to share NFS
+  copy:
+    src     : "{{ HOME }}/code/ansible/roles/rpi/files/etc/exports"
+    dest    : /etc/exports
+    owner   : root
+    group   : root
+    mode    : '644'
+    backup  : yes
+  become: yes
+
+- name: Refresh nfs exports
+  shell: exportfs -r
+  become: yes

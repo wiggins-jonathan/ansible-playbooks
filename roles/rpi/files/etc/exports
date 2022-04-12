@@ -1,0 +1,5 @@
+/home/jonathan/documents  192.168.1.100(rw,all_squash)
+/home/jonathan/games      192.168.1.100(rw,all_squash)
+/home/jonathan/music      192.168.1.100(rw,all_squash)
+/home/jonathan/pictures   192.168.1.100(rw,all_squash)
+/home/jonathan/video      192.168.1.100(rw,all_squash)

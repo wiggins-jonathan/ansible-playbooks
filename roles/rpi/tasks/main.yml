@@ -1,0 +1,5 @@
+- name: Change login shell to zsh
+  shell: chsh --shell /usr/bin/zsh
+  become: yes
+
+- include_tasks: nfs.yml
