@@ -21,7 +21,7 @@
     line    : "{{ USER }} ALL=(ALL) ALL"
     validate: visudo -cf %s
 
-- name: Copy over ssh key
+- name: Copy over ssh public key
   authorized_key:
     user  : "{{ USER }}"
     state : present
@@ -39,3 +39,21 @@
     validate: /usr/sbin/sshd -T -f %s
   notify:
     - restart sshd
+
+- name: Clone bastion repo
+  git:
+    repo    : https://gitlab.com/wiggins.jonathan/bastion.git
+    dest    : "{{ HOME }}/bastion"
+
+- name: Copy over .env file
+  copy:
+    src     : "{{ HOME }}/code/bastion/.env"
+    dest    : "{{ HOME }}/bastion"
+    owner   : "{{ USER }}"
+    group   : "{{ USER }}"
+    mode    : '644'
+
+- name: Bring up webservices using docker-compose
+  shell:
+    cmd: "docker-compose -f {{ HOME }}/bastion/docker-compose.yml up -d"
+  become: yes
